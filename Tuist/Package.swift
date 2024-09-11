@@ -6,7 +6,7 @@ import PackageDescription
 
     enum SaveTrackSettings {
         static let projectName = "SaveTrack"
-        static let configPath = Path.relativeToRoot("SaveTrack/Sources/Secrets.xcconfig")
+        static let configPath = Path.relativeToRoot("SaveTrack/Sources/Secrets/Secrets.xcconfig")
         static let settings = Settings.settings(configurations: [
             .debug(name: .init(stringLiteral: "\(projectName)Debug"), xcconfig: configPath),
             .release(name: .init(stringLiteral: "\(projectName)Release"), xcconfig: configPath)
