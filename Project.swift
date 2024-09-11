@@ -15,7 +15,8 @@ let infoPlist: [String : Plist.Value] = [
         "CFBundleTypeRole": "Editor",
         "CFBundleURLSchemes": ["kakaof729aa4e6a2aa28d3f8dee50109387b8"],
     ]],
-    "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)"
+    "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)",
+    "PROJECT_API_URL": "$(PROJECT_API_URL)"
 ]
 
 enum SaveTrackSettings {
@@ -43,7 +44,8 @@ let project = Project(
             dependencies: [
                 .external(name: "Alamofire"),
                 .external(name: "KakaoSDKCommon"),
-                .external(name: "KakaoSDKAuth")
+                .external(name: "KakaoSDKAuth"),
+                .external(name: "KakaoSDKUser")
             ]
         ),
         .target(

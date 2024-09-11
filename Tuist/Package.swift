@@ -1,17 +1,17 @@
 // swift-tools-version: 5.9
 import PackageDescription
 
-enum SaveTrackSettings {
-    static let projectName = "SaveTrack"
-    static let configPath = Path.relativeToRoot("SaveTrack/Sources/Secrets.xcconfig")
-    static let settings = Settings.settings(configurations: [
-        .debug(name: .init(stringLiteral: "\(projectName)Debug"), xcconfig: configPath),
-        .release(name: .init(stringLiteral: "\(projectName)Release"), xcconfig: configPath)
-    ])
-}
-
 #if TUIST
     import ProjectDescription
+
+    enum SaveTrackSettings {
+        static let projectName = "SaveTrack"
+        static let configPath = Path.relativeToRoot("SaveTrack/Sources/Secrets.xcconfig")
+        static let settings = Settings.settings(configurations: [
+            .debug(name: .init(stringLiteral: "\(projectName)Debug"), xcconfig: configPath),
+            .release(name: .init(stringLiteral: "\(projectName)Release"), xcconfig: configPath)
+        ])
+    }
 
     let packageSettings = PackageSettings(
         // Customize the product types for specific package product

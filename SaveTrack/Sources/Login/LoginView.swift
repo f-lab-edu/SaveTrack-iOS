@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct LoginView: View {
+    @State private var viewModel = LoginViewModel()
+    
     var body: some View {
         Button(action: {
-            
+            Task {
+                await viewModel.kakaoLogin()
+            }
         }, label: {
             SaveTrackAsset.Assets.kakaoLoginImage.swiftUIImage
                 .resizable()
