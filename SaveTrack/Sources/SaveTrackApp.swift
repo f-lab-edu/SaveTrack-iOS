@@ -6,9 +6,7 @@ import KakaoSDKAuth
 @main
 struct SaveTrackApp: App {
     init() {
-        if let appKey = Secrets.Keys.KAKAO_APP_KEY {
-            KakaoSDK.initSDK(appKey: appKey)
-        }
+        KakaoSDK.initSDK(appKey: Secrets.Keys.KAKAO_APP_KEY)
     }
     
     var body: some Scene {
