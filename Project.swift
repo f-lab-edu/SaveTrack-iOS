@@ -1,6 +1,9 @@
 import ProjectDescription
 
 let infoPlist: [String : Plist.Value] = [
+    "NSAppTransportSecurity": [
+        "NSAllowsArbitraryLoads": true
+    ],
     "UILaunchScreen": [
         "UIColorName": "",
         "UIImageName": "",

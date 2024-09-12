@@ -13,7 +13,7 @@ struct LoginView: View {
     var body: some View {
         Button(action: {
             Task {
-                await viewModel.kakaoLogin()
+                await viewModel.login()
             }
         }, label: {
             SaveTrackAsset.Assets.kakaoLoginImage.swiftUIImage

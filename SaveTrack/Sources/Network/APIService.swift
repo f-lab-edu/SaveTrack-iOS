@@ -18,7 +18,6 @@ final class APIService: APIServiceProtocol {
     /// api request 함수
     func request<Target: URLRequestConvertible, Response: Decodable>(request: Target, response: Response.Type) async throws -> Response {
         let result = await API.requestToExternalAPI(request)
-            .validate()
             .serializingDecodable(response.self)
             .result
         switch result {
@@ -31,12 +30,14 @@ final class APIService: APIServiceProtocol {
 }
 
 fileprivate final class API {
+    static let session: Session = {
+        let configuration = URLSessionConfiguration.af.default
+        let session = Session(configuration: configuration, eventMonitors: [NetworkEventLogger()])
+        return session
+    }()
     static let timeOut: TimeInterval = 5.0
     
     static func requestToExternalAPI(_ convertible: URLRequestConvertible, interceptor: RequestInterceptor? = nil) -> DataRequest {
-        let configuration = URLSessionConfiguration.af.default
-        let session = Session(configuration: configuration, eventMonitors: [NetworkEventLogger()])
-
         return session.request(convertible, interceptor: interceptor)
     }
 }

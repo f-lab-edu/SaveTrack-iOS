@@ -20,26 +20,25 @@ extension AuthTarget: Target {
 
     var path: String {
         switch self {
-        case .kakaoLogin(let accessToken):
+        case .kakaoLogin:
             return "/oauth"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .kakaoLogin(let accessToken):
+        case .kakaoLogin:
             return .post
         }
     }
     
     var headers: [String : String] {
-        [:]
+        ["Content-Type": "application/json"]
     }
     
     var parameter: RequestParameter {
         switch self {
         case .kakaoLogin(let accessToken):
-            // TODO: kakao가 아닌듯. 수정하기
             let body: [String: String] = [
                 "provider": "kakao",
                 "accessToken": accessToken
