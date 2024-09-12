@@ -9,6 +9,6 @@ import Foundation
 
 extension Secrets {
     enum ProjectURLs {
-        static let PROJECT_API_URL = Bundle.main.object(forInfoDictionaryKey: "PROJECT_API_URL") as? String
+        static let PROJECT_API_URL = Bundle.main.object(forInfoDictionaryKey: "PROJECT_API_URL") as! String
     }
 }

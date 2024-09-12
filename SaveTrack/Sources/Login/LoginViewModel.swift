@@ -30,6 +30,7 @@ final class LoginViewModel {
                 print("\(error)")
             }
         }
+        print("✅", oauthToken?.accessToken)
         return oauthToken?.accessToken
     }
 }

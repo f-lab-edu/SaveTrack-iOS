@@ -22,7 +22,6 @@ final class NetworkEventLogger: EventMonitor {
         debugPrint("Headers: " + "\(request.request?.allHTTPHeaderFields ?? [:])")
         debugPrint("Body: " + (request.request?.httpBody?.toPrettyString ?? ""))
         debugPrint("======= 🛰 NETWORK Reqeust LOG End =======")
-        
     }
     
     /// response 관련 로그 출력

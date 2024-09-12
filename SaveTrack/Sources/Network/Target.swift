@@ -26,10 +26,10 @@ extension Target {
         case .queryNBody(let query, let body):
             urlRequest.url = try makeUrlWithQuery(url: urlRequest.url, query: query)
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body?.toParameter() ?? [:])
-            
         case .none:
             break
         }
+        
         return urlRequest
     }
     
@@ -48,7 +48,7 @@ extension Target {
 }
 
 enum RequestParameter {
-    case queryNBody(_ query: Encodable?, _ parameter: Encodable?)
+    case queryNBody(_ query: Encodable?, _ body: Encodable?)
     case none
 }
 
