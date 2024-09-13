@@ -77,6 +77,8 @@ extension AppDelegate {
     // Handle successful registration for remote notifications
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Send the device token to your server for push notification handling
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        print("🔵 deviceToken", token)
     }
     
     // Handle unsuccessful registration for remote notifications

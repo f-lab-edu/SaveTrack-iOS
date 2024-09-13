@@ -4,10 +4,7 @@ let infoPlist: [String : Plist.Value] = [
     "NSAppTransportSecurity": [
         "NSAllowsArbitraryLoads": true
     ],
-    "UILaunchScreen": [
-        "UIColorName": "",
-        "UIImageName": "",
-    ],
+    "UILaunchStoryboardName": "Launch Screen.storyboard",
     "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
     "LSApplicationQueriesSchemes": [
         "kakaokompassauth",
