@@ -16,7 +16,7 @@ final class Repository {
 }
 
 extension Repository {
-    func addEvent(_ model: Event) async throws {
+    func addEvent(_ model: EventModel) async throws {
         let requestDto = AddEventRequestDTO(name: model.name,
                                           purpose: model.purpose,
                                           dayOfWeeks: model.dayOfWeeks,
