@@ -8,31 +8,19 @@
 import SwiftUI
 
 extension View {
-    
+    func gradientBackground() -> some View {
+        self
+            .background(Color.clear.modifier(GradientBackground()))
+    }
 }
-
-
-import SwiftUI
 
 struct GradientBackground: ViewModifier {
     func body(content: Content) -> some View {
         content
-//            .background( AngularGradient(gradient: Gradient(colors: [SaveTrackAsset.Assets.blue0860D6.swiftUIColor,
-//                                                                          Color.purple]),
-//                                         center: .topLeading,
-//                                         angle: .degrees(180 + 45))
-//                .edgesIgnoringSafeArea(.all))
-            .background(LinearGradient(gradient: Gradient(colors: [SaveTrackAsset.Assets.blue0860D6.swiftUIColor, .purple]),
-                                       startPoint: .top,
-                                       endPoint: .bottom)
-                .ignoresSafeArea())
-    }
-}
-
-struct GradientBackground_Previews: PreviewProvider {
-    static var previews: some View {
-        Color.clear
-            .modifier(GradientBackground())
-       
+            .background( AngularGradient(gradient: Gradient(colors: [SaveTrackAsset.Assets.blue0860D6.swiftUIColor,
+                                                                     Color.purple]),
+                                         center: .topLeading,
+                                         angle: .degrees(180 + 45))
+                .edgesIgnoringSafeArea(.all))
     }
 }
