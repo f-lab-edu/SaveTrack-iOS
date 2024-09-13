@@ -20,8 +20,8 @@ extension Target {
     func asURLRequest() throws -> URLRequest {
         let url = try baseURL.asURL()
         var urlRequest = try URLRequest(url: url.appendingPathComponent(path), method: method)
-        // TODO: manager 메소드로 고쳐야함
-        urlRequest.headers.add(.authorization(bearerToken: UserDefaults.standard.string(forKey: "SaveTrackToken") ?? ""))
+        let bearerToken = TokenManager.readToken() ?? ""
+        urlRequest.headers.add(.authorization(bearerToken: bearerToken))
         if !headers.isEmpty {
             headers.forEach({ key, value in
                 urlRequest.headers.add(name: key, value: value)
