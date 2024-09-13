@@ -20,9 +20,19 @@ final class LoginViewModel {
             let kakaoAccessToken = try await kakaoLogin()
             let request = AuthTarget.kakaoLogin(accessToken: kakaoAccessToken)
             let result = try await apiService.request(request: request, response: BaseResponseDTO<LoginResponseDTO>.self)
-            print("✅", result.code)
-            print("✅", result.message)
-            print("✅", result.data)
+            
+            switch result.code {
+            case 200:
+                switch result.data {
+                case .data(let loginResponse):
+                    let accessToken = loginResponse.token
+                    TokenManager.saveToken(accessToken)
+                default:
+                    break
+                }
+            default:
+                break
+            }
         } catch {
             print("🚨 \(error)")
         }
