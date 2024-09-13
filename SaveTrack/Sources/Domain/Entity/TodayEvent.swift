@@ -14,4 +14,5 @@ struct TodayEvent: Identifiable {
     var eventId: Int
     var eventName: String
     var checked: Bool
+    var category: CategoryCase
 }

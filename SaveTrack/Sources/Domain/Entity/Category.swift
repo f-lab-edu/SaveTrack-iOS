@@ -23,10 +23,9 @@ public enum CategoryCase: String, CaseIterable, Identifiable {
         self.rawValue
     }
     
-    case electric
-    case money
-    case time
-    case water
+    case electric = "category-001"
+    case money = "category-002"
+    case time = "category-003"
     
     var toCategory: Category {
         return .init(title: title,
@@ -41,8 +40,17 @@ public enum CategoryCase: String, CaseIterable, Identifiable {
             "돈 절약"
         case .time:
             "시간 절약"
-        case .water:
-            "물 절약"
+        }
+    }
+    
+    var imageName: String {
+        switch self {
+        case .electric:
+            SaveTrackAsset.Assets.electric.name
+        case .money:
+            SaveTrackAsset.Assets.money.name
+        case .time:
+            SaveTrackAsset.Assets.time.name
         }
     }
 }

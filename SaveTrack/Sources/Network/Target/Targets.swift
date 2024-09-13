@@ -17,6 +17,7 @@ enum Targets {
     case getEventList(query: GetEventListQueryDTO)
     case getBadgeList
     case getCategoryList
+    case getReport(GetReportDTO)
 }
 
 extension Targets: Target {
@@ -44,6 +45,8 @@ extension Targets: Target {
             return "/badges"
         case .getCategoryList:
             return "/categories"
+        case .getReport:
+            return "/reports"
         }
     }
     
@@ -66,6 +69,9 @@ extension Targets: Target {
         case .getBadgeList:
             return .get
         case .getCategoryList:
+            return .get
+            
+        case .getReport:
             return .get
         }
     }
@@ -94,6 +100,9 @@ extension Targets: Target {
             return .none
         case .getCategoryList:
             return .none
+            
+        case .getReport(let parameter):
+            return .queryNBody(nil, parameter)
         }
     }
 }

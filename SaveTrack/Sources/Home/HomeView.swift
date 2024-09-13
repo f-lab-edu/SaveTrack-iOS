@@ -9,23 +9,53 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
-    
+    @State private var isShowAddEventView: Bool = false
+    @State private var selectedEvent: TodayEvent?
     var body: some View {
-        NavigationView(content: {
-            ScrollView {
-                LazyVStack(spacing: 20.0) {
-                    todayEventsView
-                    popularEventsView
-                    myBadgesView
-                }
+        
+        ScrollView {
+            addEventView
+            LazyVStack(spacing: 20.0) {
+                todayEventsView
+                popularEventsView
+                myBadgesView
             }
-            .frame(maxWidth: .infinity)
-            .gradientBackground()
+        }
+        .frame(maxWidth: .infinity)
+        .gradientBackground()
+        .onAppear(perform: {
+            viewModel.trigger(.onAppear)
         })
+        .sheet(item: $selectedEvent, content: { item in
+            EmptyView()
+        })
+        .sheet(isPresented: $isShowAddEventView, content: {
+            AddEventView(viewModel: .init(state: .init()))
+        })
+        
+        
     }
 }
 
 extension HomeView {
+    private var addEventView: some View {
+        VStack {
+            HStack(spacing: 0.0) {
+                Image([CategoryCase.allCases].randomElement()?.first?.imageName ?? "")
+                    .resizable()
+                    .scaledToFit()
+                Text("추가하기")
+                    .font(.SaveTrack.title)
+                    .foregroundStyle(.purple)
+            }
+            .frame(height: 30.0)
+            .padding(.trailing, 16.0)
+            .background(.white)
+            .cornerRadius(15.0)
+            .padding(.trailing, 16.0)
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+    }
     private var todayEventsView: some View {
         VStack(spacing: 0.0) {
             Text("오늘의 절약")
@@ -36,10 +66,16 @@ extension HomeView {
             
             ForEach(viewModel.state.todayEvent) { event in
                 SavingCheckView(title: event.eventName,
-                                image: "",
+                                image: event.category.imageName,
                                 isCompleted: .constant(event.checked),
                                 didTapped: { isCompleted in
-                    
+                    if let index = viewModel.state.todayEvent.firstIndex(where: { $0.eventId == event.eventId }) {
+                        viewModel.state.todayEvent[index].checked.toggle()
+                        if  viewModel.state.todayEvent[index].checked {
+                            AnimationManger.Shared.emitImages(name: event.category.imageName)
+
+                        }
+                    }
                 })
                 .padding(.horizontal, 16.0)
             }
@@ -51,11 +87,27 @@ extension HomeView {
     
     private var popularEventsView: some View {
         VStack(spacing: 0.0) {
-            Text("인기있는 절약")
+            Text("진행중이 절약")
                 .font(.SaveTrack.title)
                 .foregroundStyle(.purple)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16.0)
+               
+            ForEach(viewModel.state.report) { event in
+                HStack(spacing: 8.0) {
+                    Text(event.eventName).font(.SaveTrack.content)
+                    Spacer()
+                    Image(event.category.imageName)
+                        .resizable()
+                        .frame(width: 30.0, height: 30.0)
+                }
+                .frame(height: 56.0)
+                .padding(.horizontal, 16.0)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedEvent = event
+                }
+            }
             
         }
         .background(.white)
@@ -70,6 +122,18 @@ extension HomeView {
                 .foregroundStyle(.purple)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16.0)
+            
+            ScrollView(.horizontal) {
+                HStack(spacing: 10.0) {
+                    ForEach(viewModel.state.badges) { badge in
+                        
+                        Image(badge.imageName)
+                            .resizable()
+                            .frame(width: 60.0, height: 60.0)
+                    }
+                }
+                .padding()
+            }
         }
         .background(.white)
         .cornerRadius(16.0)

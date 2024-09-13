@@ -26,7 +26,7 @@ struct SavingCheckView: View {
         HStack(spacing: 8.0) {
             Image(image)
                 .resizable()
-                .frame(width: 40.0, height: 40.0)
+                .frame(width: 30.0, height: 30.0)
             
             Text(title).font(.SaveTrack.content)
             Spacer()

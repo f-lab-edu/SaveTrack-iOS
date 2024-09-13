@@ -8,8 +8,7 @@
 import Foundation
 
 struct GetBadgeListDTO: Decodable {
-    let badgeId: Int
-    let badgeName: String
-    let acquired: Bool
-    let acquiredAt: String
+    let badgeId: Int?
+    let badgeName: String?
+    let acquired: Bool?
 }
