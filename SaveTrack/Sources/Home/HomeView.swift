@@ -11,15 +11,17 @@ struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 20.0) {
-                todayEventsView
-                popularEventsView
-                myBadgesView
+        NavigationView(content: {
+            ScrollView {
+                LazyVStack(spacing: 20.0) {
+                    todayEventsView
+                    popularEventsView
+                    myBadgesView
+                }
             }
-        }
-        .frame(maxWidth: .infinity)
-        .gradientBackground()
+            .frame(maxWidth: .infinity)
+            .gradientBackground()
+        })
     }
 }
 
