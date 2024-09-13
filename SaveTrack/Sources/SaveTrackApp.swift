@@ -5,9 +5,7 @@ import KakaoSDKAuth
 
 @main
 struct SaveTrackApp: App {
-    init() {
-        KakaoSDK.initSDK(appKey: Secrets.Keys.KAKAO_APP_KEY)
-    }
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
