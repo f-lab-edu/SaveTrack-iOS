@@ -11,7 +11,7 @@ struct SaveTrackApp: App {
     var body: some Scene {
         WindowGroup {
             if let accessToken {
-                ContentView()
+                HomeView(viewModel: .init(state: .init()))
             } else {
                 LoginView()
                     .onOpenURL(perform: { url in
