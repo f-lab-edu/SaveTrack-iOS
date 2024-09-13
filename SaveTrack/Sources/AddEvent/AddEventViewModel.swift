@@ -54,7 +54,7 @@ private extension AddEventViewModel {
     
     func addEvent() async {
         do {
-            let model = Event(name: state.name,
+            let model = EventModel(name: state.name,
                               purpose: state.purpose,
                               dayOfWeeks: state.selectedDay.map({ $0.rawValue }),
                               categoryId: state.selectedCategory?.id ?? "",
