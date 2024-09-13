@@ -44,6 +44,7 @@ let project = Project(
             infoPlist: .extendingDefault(with: infoPlist),
             sources: ["SaveTrack/Sources/**"],
             resources: ["SaveTrack/Resources/**"],
+            entitlements: .file(path: .relativeToRoot("SaveTrack/SaveTrack.entitlements")),
             dependencies: [
                 .external(name: "Alamofire"),
                 .external(name: "KakaoSDKCommon"),
