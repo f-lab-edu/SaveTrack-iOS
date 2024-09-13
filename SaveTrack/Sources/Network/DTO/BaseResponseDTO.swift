@@ -38,3 +38,7 @@ struct BaseResponseDTO<T: Decodable>: Decodable {
         case stackTrace([String])
     }
 }
+
+struct EmptyDto: Decodable {
+    // 빈 dto
+}
