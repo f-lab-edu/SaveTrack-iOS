@@ -10,16 +10,16 @@ struct SaveTrackApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if let accessToken {
+//            if let accessToken {
                 HomeView(viewModel: .init(state: .init()))
-            } else {
-                LoginView()
-                    .onOpenURL(perform: { url in
-                        if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                            _ = AuthController.handleOpenUrl(url: url)
-                        }
-                    })
-            }
+//            } else {
+//                LoginView()
+//                    .onOpenURL(perform: { url in
+//                        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+//                            _ = AuthController.handleOpenUrl(url: url)
+//                        }
+//                    })
+//            }
         }
     }
 }

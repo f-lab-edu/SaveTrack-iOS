@@ -26,7 +26,7 @@ final class EventDetailViewModel: ViewModel {
                 event.name,
                 event.purpose,
                 event.dayOfWeeks.joined(separator: " · "),
-                event.categoryId,
+                event.category.title,
                 event.morningCheerMessage,
                 event.afternoonCheerMessage,
                 event.eveningCheerMessage
@@ -39,14 +39,14 @@ final class EventDetailViewModel: ViewModel {
     }
     
     func trigger(_ input: Input) {
-        switch input {
-        case .load(let eventId):
-            Task {
-                let event = await repository.loadEventDetail(eventId: eventId)
-                await MainActor.run {
-                    state.event = event
-                }
-            }
-        }
+//        switch input {
+//        case .load(let eventId):
+//            Task {
+//                let event = await repository.loadEventDetail(eventId: eventId)
+//                await MainActor.run {
+//                    state.event = event
+//                }
+//            }
+//        }
     }
 }

@@ -10,7 +10,9 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     @State private var isShowAddEventView: Bool = false
-    @State private var selectedEvent: TodayEvent?
+    @State private var selectedEvent: EventModel?
+    @State private var isShowBounce: Bool = false
+    @State private var imageName: String = ""
     var body: some View {
         
         ScrollView {
@@ -23,14 +25,22 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity)
         .gradientBackground()
+        .modifier(BounceAnimationModifier(isShow: $isShowBounce,
+                                          imageName: imageName,
+                                          complete: {
+            
+        }))
         .onAppear(perform: {
             viewModel.trigger(.onAppear)
         })
         .sheet(item: $selectedEvent, content: { item in
-            EmptyView()
+            EventDetailView(viewModel: .init(state: .init(event: item)))
         })
         .sheet(isPresented: $isShowAddEventView, content: {
-            AddEventView(viewModel: .init(state: .init()))
+            AddEventView(viewModel: .init(state: .init()), complete: { eventmodel in
+                viewModel.state.todayEvent.append(eventmodel)
+                viewModel.state.report.append(eventmodel)
+            })
         })
         
         
@@ -53,6 +63,9 @@ extension HomeView {
             .background(.white)
             .cornerRadius(15.0)
             .padding(.trailing, 16.0)
+            .onTapGesture {
+                isShowAddEventView = true
+            }
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
     }
@@ -65,7 +78,7 @@ extension HomeView {
                 .padding(16.0)
             
             ForEach(viewModel.state.todayEvent) { event in
-                SavingCheckView(title: event.eventName,
+                SavingCheckView(title: event.name,
                                 image: event.category.imageName,
                                 isCompleted: .constant(event.checked),
                                 didTapped: { isCompleted in
@@ -92,10 +105,14 @@ extension HomeView {
                 .foregroundStyle(.purple)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16.0)
+                .onTapGesture {
+                    imageName = "money1"
+                    isShowBounce = true
+                }
                
             ForEach(viewModel.state.report) { event in
                 HStack(spacing: 8.0) {
-                    Text(event.eventName).font(.SaveTrack.content)
+                    Text(event.name).font(.SaveTrack.content)
                     Spacer()
                     Image(event.category.imageName)
                         .resizable()

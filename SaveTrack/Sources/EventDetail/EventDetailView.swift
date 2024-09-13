@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EventDetailView: View {
-    let eventId: String
     @StateObject var viewModel: EventDetailViewModel
     
     var body: some View {
@@ -23,9 +22,7 @@ struct EventDetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .gradientBackground()
-        .task {
-            viewModel.trigger(.load(eventId: eventId))
-        }
+       
     }
     
     @ViewBuilder
@@ -45,5 +42,5 @@ struct EventDetailView: View {
 }
 
 #Preview {
-    EventDetailView(eventId: "", viewModel: .init(state: .init()))
+    EventDetailView(viewModel: .init(state: .init()))
 }

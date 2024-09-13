@@ -23,7 +23,7 @@ final class AddEventViewModel: ViewModel {
         var afternoonCheerMessage: String = ""
         var eveningCheerMessage: String = ""
         var selectedDay: [Week] = []
-        var selectedCategory: Category? = nil
+        var selectedCategory: CategoryCase? = nil
     }
     
     enum Input {
@@ -34,7 +34,7 @@ final class AddEventViewModel: ViewModel {
     func trigger(_ input: Input) {
         switch input {
         case .selectCategory(let category):
-            state.selectedCategory = category.toCategory
+            state.selectedCategory = category
             
         case .selectDay(let day):
             selectDay(day: day)
@@ -54,17 +54,17 @@ private extension AddEventViewModel {
     
     func addEvent() async {
         do {
-            let model = EventModel(name: state.name,
-                              purpose: state.purpose,
-                              dayOfWeeks: state.selectedDay.map({ $0.rawValue }),
-                              categoryId: state.selectedCategory?.id ?? "",
-                              morningCheerMessage: state.morningCheerMessage,
-                              afternoonCheerMessage: state.afternoonCheerMessage,
-                              eveningCheerMessage: state.eveningCheerMessage)
-            
-            try await repository.addEvent(model)
-            
-            state.dismiss = true
+//            let model = EventModel(name: state.name,
+//                              purpose: state.purpose,
+//                              dayOfWeeks: state.selectedDay.map({ $0.rawValue }),
+//                              categoryId: state.selectedCategory?.id ?? "",
+//                              morningCheerMessage: state.morningCheerMessage,
+//                              afternoonCheerMessage: state.afternoonCheerMessage,
+//                              eveningCheerMessage: state.eveningCheerMessage)
+//            
+//            try await repository.addEvent(model)
+//            
+//            state.dismiss = true
         } catch {
             print(error)
         }

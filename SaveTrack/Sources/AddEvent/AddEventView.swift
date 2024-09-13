@@ -10,6 +10,15 @@ import SwiftUI
 struct AddEventView: View {
     @StateObject var viewModel: AddEventViewModel
     @Environment(\.dismiss) var dismiss
+    
+    var complete: (EventModel) -> Void
+    
+    init(viewModel: AddEventViewModel,
+         complete: @escaping (EventModel) -> Void) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.complete = complete
+    }
+    
     var body: some View {
         VStack(spacing: 0.0) {
             TopBar(title: "이벤트 추가하기")
@@ -34,35 +43,35 @@ extension AddEventView {
     private var textFieldsView: some View {
         VStack(spacing: 0.0, content: {
             VStack(spacing: 16.0) {
-                TextField(text: .constant("")) {
+                TextField(text: $viewModel.state.name) {
                     Text("절약 이벤트 제목을 입력해주세요.")
                 }
                 .frame(height: 40.0)
                 .background(.white)
                 .cornerRadius(4.0)
                 
-                TextField(text: .constant("")) {
+                TextField(text: $viewModel.state.purpose) {
                     Text("절약 목적을 입력해주세요.")
                 }
                 .frame(height: 40.0)
                 .background(.white)
                 .cornerRadius(4.0)
                 
-                TextField(text: .constant("")) {
+                TextField(text: $viewModel.state.morningCheerMessage) {
                     Text("오전에 받을 메시지를 입력해주세요.")
                 }
                 .frame(height: 40.0)
                 .background(.white)
                 .cornerRadius(4.0)
                 
-                TextField(text: .constant("")) {
+                TextField(text: $viewModel.state.afternoonCheerMessage) {
                     Text("오후에 받을 메시지를 입력해주세요.")
                 }
                 .frame(height: 40.0)
                 .background(.white)
                 .cornerRadius(4.0)
                 
-                TextField(text: .constant("")) {
+                TextField(text: $viewModel.state.eveningCheerMessage) {
                     Text("저녁에 받을 메시지를 입력해주세요.")
                 }
                 .frame(height: 40.0)
@@ -143,7 +152,15 @@ extension AddEventView {
     
     private var bottomBar: some View {
         Button(action: {
-            
+            let model = EventModel(eventId: Int(Date().toString(format: "hhss")) ?? 100, name: viewModel.state.name,
+                                   purpose: viewModel.state.purpose,
+                                   dayOfWeeks: viewModel.state.selectedDay.map({ $0.title }),
+                                   categoryId: viewModel.state.selectedCategory?.id ?? "",
+                                   morningCheerMessage: viewModel.state.morningCheerMessage,
+                                   afternoonCheerMessage: viewModel.state.afternoonCheerMessage,
+                                   eveningCheerMessage: viewModel.state.eveningCheerMessage)
+            complete(model)
+            dismiss()
         }, label: {
             Text("추가하기")
                 .foregroundStyle(.purple)
@@ -158,5 +175,5 @@ extension AddEventView {
 }
 
 #Preview {
-    AddEventView(viewModel: .init(state: .init()))
+    AddEventView(viewModel: .init(state: .init()), complete: { _ in })
 }

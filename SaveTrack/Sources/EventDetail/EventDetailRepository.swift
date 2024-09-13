@@ -18,6 +18,7 @@ final class EventDetailRepository {
         guard case .data(let eventDTO) = result?.data else { return nil }
         // TODO: categoryId랑 message 0, 1, 2 맞는지 확인..
         return EventModel(
+            eventId: 213213,
             name: eventDTO.name,
             purpose: eventDTO.purpose,
             dayOfWeeks: eventDTO.dayOfWeeks,
